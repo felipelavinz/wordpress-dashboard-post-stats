@@ -6,6 +6,7 @@ Description: Graph created/published/edited posts over time on a dashboard widge
 Version: 0.1
 Author: Felipe Lavín
 Author URI: http://www.yukei.net
+License: GPL3
 */
 
 class VisualizePostActions{
