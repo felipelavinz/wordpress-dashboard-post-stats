@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Visualize post actions
+Plugin Name: Dashboard Posts Stats
 Plugin URI: http://www.yukei.net
-Description: Graph created/published/edited posts over time on a dashboard widget
+Description: Graph published posts over time on a dashboard widget
 Version: 0.1
 Author: Felipe Lavín
 Author URI: http://www.yukei.net
 License: GPL3
 */
 
-class VisualizePostActions{
+class DashboardPostsStats{
 
 	private static $instance;
 
@@ -36,19 +36,19 @@ class VisualizePostActions{
 	private function setActions(){
 		add_action('wp_dashboard_setup', array($this, 'addDashboardWidget'));
 		add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
-		add_action('wp_ajax_get_visualize_post_data', array($this, 'getDataAjax'));
+		add_action('wp_ajax_get_dashboard_posts_stats', array($this, 'getDataAjax'));
 	}
 
 	public function enqueueScripts(){
 		$screen = get_current_screen();
 		if ( $screen->base === 'dashboard' ) {
 			wp_enqueue_script( 'google-ajaxapi', '//www.google.com/jsapi', array(), static::plugin_version, true );
-			wp_enqueue_script( 'visualize-posts-script', plugins_url( '/js/visualize-posts.js', __FILE__ ), array('google-ajaxapi'), static::plugin_version, true );
+			wp_enqueue_script( 'dashboard-posts-stats-script', plugins_url( '/js/dashboard-posts-stats.js', __FILE__ ), array('google-ajaxapi'), static::plugin_version, true );
 		}
 	}
 
 	public function addDashboardWidget(){
-		wp_add_dashboard_widget( 'visualize-post-actions', __('Published posts', 'visualize_post_actions'), array($this, 'dashboardWidgetContent') );
+		wp_add_dashboard_widget( 'dashbard-posts-stats', __('Published posts', 'dashboard_post_stats'), array($this, 'dashboardWidgetContent') );
 	}
 
 	public function getDataAjax(){
@@ -118,11 +118,11 @@ class VisualizePostActions{
 	}
 
 	public function dashboardWidgetContent(){
-		echo '<div id="visualize-posts-canvas" style="height:120px">';
-			echo '<span class="description">Loading data&hellip;</span>';
+		echo '<div id="dashboard-post-stats-canvas" style="height:120px">';
+			echo '<span class="description">'. __('Loading data&hellip;', 'dashboard_post_stats') .'</span>';
 		echo '</div>';
 	}
 }
 // Instantiate the class object
 
-$VisualizePostActions = VisualizePostActions::getInstance();
+$DashboardPostsStats = DashboardPostsStats::getInstance();

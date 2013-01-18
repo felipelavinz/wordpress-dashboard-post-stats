@@ -1,9 +1,10 @@
 (function($){
 	google.load('visualization', '1.0', {'packages':['corechart']});
-	google.setOnLoadCallback( visualizePosts );
-	function visualizePosts(){
+	google.setOnLoadCallback( dashboardPostStats );
+	// chart styles taken from Antispam-bee :-)
+	function dashboardPostStats(){
 		$.get( ajaxurl, {
-			action: 'get_visualize_post_data'
+			action: 'get_dashboard_posts_stats'
 		}, function(json){
 			var data = google.visualization.arrayToDataTable( json );
 			var options = {
@@ -28,7 +29,7 @@
 				pointSize: 6,
 				colors: [ '#3399CC' ]
 			},
-			chart = new google.visualization.AreaChart( document.getElementById('visualize-posts-canvas') );
+			chart = new google.visualization.AreaChart( document.getElementById('dashboard-post-stats-canvas') );
 			chart.draw( data, options );
 		}, 'json');
 	}
