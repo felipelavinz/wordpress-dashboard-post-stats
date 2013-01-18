@@ -42,7 +42,7 @@ class DashboardPostsStats{
 	public function enqueueScripts(){
 		$screen = get_current_screen();
 		if ( $screen->base === 'dashboard' ) {
-			wp_enqueue_script( 'google-ajaxapi', '//www.google.com/jsapi', array(), static::plugin_version, true );
+			wp_enqueue_script( 'google-ajaxapi', 'https://www.google.com/jsapi', array(), static::plugin_version, true );
 			wp_enqueue_script( 'dashboard-posts-stats-script', plugins_url( '/js/dashboard-posts-stats.js', __FILE__ ), array('google-ajaxapi'), static::plugin_version, true );
 		}
 	}
